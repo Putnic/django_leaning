@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic-ext,latin-ext"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'assets/favicon.png' %}"
+    />
+    <title>Blog</title>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="container">
+        <h1><a href="{% url 'blog:post_list_url' %}">Django Blog</a></h1>
+        <nav>
+          {% if user.is_authenticated %}
+          <a href="{% url 'blog:post_draft_list_url' %}" class="top-menu" title="draft posts">
+            <i class="fas fa-edit"></i>
+          </a>
+          <a href="{% url 'blog:post_new_url' %}" class="top-menu" title="new post">
+            <i class="fas fa-plus"></i>
+          </a>
+          
+          <a href="{% url 'logout' %}" class="top-menu" title="log out">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}" class="top-menu" title="log in">
+            <i class="fas fa-user-lock"></i>
+          </a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+
+    <main class="content container">
+      <section id="posts" class="row">
+        <div class="col-md-12">
+          {% block content %} {% endblock %}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
